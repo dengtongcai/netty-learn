@@ -15,8 +15,8 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<String> {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("服务端已收到新连接" + System.currentTimeMillis());
         // 为新连接发送庆祝
-        ctx.write("Welcome to " + InetAddress.getLocalHost().getHostName() + "!/r/n");
-        ctx.write("It is " + new Date() + " now./r/n");
+        ctx.write("Welcome to " + InetAddress.getLocalHost().getHostName() + "!\r\n");
+        ctx.write("It is " + new Date() + " now.\r\n");
         ctx.flush();
 
     }
@@ -27,12 +27,12 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<String> {
         String response;
         boolean close = false;
         if (msg == null || msg.equals("")) {
-            response = "Please type something./r/n";
+            response = "Please type something.\r\n";
         } else if ("bye".equals(msg)) {
-            response = "Have a good day!/r/n";
+            response = "Have a good day!\r\n";
             close = true;
         } else {
-            response = "Did you say '" + msg + "'?/r/n";
+            response = "Did you say '" + msg + "'?\r\n";
         }
         ChannelFuture future = ctx.write(response);
         if (close) {
